@@ -1,0 +1,92 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+
+<div class="row">
+    <div class="col-md-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9">
+        <h3 class="m-0 text-dark">Department List</h3>
+    </div>
+    <div class="col-md-3" style="text-align: right;">
+        <button type="button" class="btn btn-sm btn-info" (click)="onCreateClick()" >Create</button>&nbsp;
+       <button type="button" class="btn btn-sm btn-info" (click)="onRefreshClick()">Refresh</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="row" >
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-outline card-secondary">
+            <div class="card-body">
+                <div class="row">
+
+
+
+                    <div class="spinner-border text-success" style="text-align: center;" *ngIf="Loading" class="col-md-12">
+                        <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner"
+                        strokeWidth="8" fill="#EEEEEE" animationDuration=".50s"></p-progressSpinner>
+                    <p></p>
+                    {{LoadingText}}
+                    </div>
+                    <!-- <div class="col-md-12" style="text-align: center;" *ngIf="Loading" >
+                        
+                    </div> -->
+                </div>
+                <input #SearchTerm *ngIf="!Loading" class="form-control " type="text"
+                name="SearchTerm" (input)="employeeTable.filterGlobal(SearchTerm.value, 'contains')" placeholder="Search...">
+                <br>
+
+                <p-table #employeeTable [value]="DepartmentList"  *ngIf="!Loading && DepartmentList.length>0" [paginator]="true" [rows]="10"  [globalFilterFields]="['departmentID','departmentName','DepartmentDescription','DepartmentHead','createdBy']">
+                   
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="departmentID">Id<p-sortIcon field="departmentID"></p-sortIcon></th>
+                            <th pSortableColumn="departmentName">DeptName<p-sortIcon field="departmentName"></p-sortIcon></th>
+                            <th pSortableColumn="departmentDescription">Description<p-sortIcon field="departmentDescription"></p-sortIcon></th>
+                            <th pSortableColumn="departmentHead">DeptHead<p-sortIcon field="departmentHead"></p-sortIcon></th>
+                            <th pSortableColumn="createdBy">CreatedBy<p-sortIcon field="createdBy "></p-sortIcon></th>
+                       
+                            <th>Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-dataItem>
+                        <tr>
+                             <td >{{dataItem.departmentID}}</td>
+                           <td >{{dataItem.departmentName}}</td>
+                            <td >{{dataItem.departmentDescription}}</td>
+                           <td >{{dataItem.departmentHead}}</td> 
+                            <td >{{dataItem.createdBy}}</td>
+                            <!--<td >{{employee.birthDate | date:'dd/MM/yyyy'}}</td>-->
+                            <div class="col-md-12">
+                           <td> 
+                            <button type="button" class="btn btn-xs btn-primary" (click)="onEditClick(dataItem.departmentID)"><i class="fas fa-edit"></i>&nbsp;&nbsp;</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-xs btn-danger" (click)="onDeleteClick(dataItem,$event)"><i class="fas fa-trash"></i>&nbsp;&nbsp;</button>
+                            </td>
+                        </div>
+                         </tr>  
+                    </ng-template>
+                </p-table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+<p-dialog header="{{PopupTitle}}" [(visible)]="ShowCreateDepartment" [modal]="true" [style]="{width: '50vw'}"
+
+        [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+        <departement-create #createDepartmentComp (createdDepartmentEvent)="onCreatedDepartmentEvent($event)"
+
+            (CreatedDepartmentCloseEvent)="onCreatedDepartmentCloseEvent($event)"></departement-create>
+
+    </p-dialog>

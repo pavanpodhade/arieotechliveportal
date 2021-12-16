@@ -1,0 +1,337 @@
+<div class="row test">
+
+  <p-tabView class="testtt">
+
+   
+    <p-tabPanel header="Personal Info" class="test1">
+  <img class="assets/img/image-icon.png" [src]="urllink" width="10%">
+  <input type="file"  (change)="selectFiles($event)">
+  <button type="button"  class="btn btn-success"  (click)="onUpload()">Save</button>
+
+   
+      <br>
+      
+      <label for="FirstName">First Name</label>
+      <input type="text" class="form-control" id="firstName" placeholder="Enter first name"
+      [(ngModel)]="EmployeeToSave.firstName" value="" name="firstName" data-toggle="tooltip" title="Enter first name" appAlphabetOnly >
+      <br>
+      
+
+      <label for="Middle Name">Middle Name</label>
+      <input type="text" class="form-control" id="middleName" placeholder="Enter Middle name"
+        [(ngModel)]="EmployeeToSave.middleName" name="middleName" appAlphabetOnly>
+        <br>
+        <label for="LastName">Last Name</label>
+      <input type="text" class="form-control" id="lastName" placeholder="Enter last name"
+        [(ngModel)]="EmployeeToSave.lastName" name="lastName" appAlphabetOnly>
+        <br>
+
+        <label for="personalEmail">personal Email</label>
+      <br />
+      <input type="text" class="form-control" id="personalEmail" placeholder="Enter personal Email" [(ngModel)]="EmployeeToSave.personalEmail"
+      name="personalEmail">
+      <br>
+      <label for="Gender">Gender</label>
+      <br />
+      <p-dropdown [options]="GenderList" [(ngModel)]="EmployeeToSave.gender" optionLabel="name" optionValue="code"
+        name="gender"></p-dropdown>  &nbsp; &nbsp;  &nbsp;
+
+        <label  for="passport">
+          passport   
+         </label> &nbsp;  &nbsp;
+     
+        <input [(ngModel)]="isUserpassport" #chkEnablehrms label="passport" type="checkbox"  inputId="chkEnable" name="inputcheck" >
+            
+        <br />
+        <br />
+          <label for="Salary">Birth Date</label>
+          <br />
+          <p-calendar [(ngModel)]="EmployeeToSave.birthDate"   dateFormat="d/mm/yy" [showIcon]="true" inputId="birthDate" name="birthDate"></p-calendar>
+          <br />
+          <br />
+          <label for="maritalStatus">MaritalStatus</label>
+          <br />
+          <input type="text" class="form-control" id="maritalStatus" placeholder="Enter Marital Status" [(ngModel)]="EmployeeToSave.maritalStatus"
+          name="maritalStatus">
+          <br />
+          <label for="permanentAddress">Permanent Address</label>
+          <br />
+          <input type="text" class="form-control" id="permanentAddress" placeholder="Enter permanent Address" [(ngModel)]="EmployeeToSave.permanentAddress"
+          name="permanentAddress">
+          <br />
+          <label for="designation">Designation</label>
+          <br />
+          <input type="text" class="form-control" id="designation" placeholder="Enter Designation" [(ngModel)]="EmployeeToSave.designation"
+          name="designation">
+    </p-tabPanel>
+<!-- **************************************************************************************************************************************************************** -->
+    <p-tabPanel header="Company">
+        <label for="OfficeEmail">Office Email</label>
+      <input type="text" class="form-control" id="OfficeEmail" placeholder="Enter Office Email" [(ngModel)]="EmployeeToSave.OfficeEmail"
+        name="OfficeEmail">
+        <br />
+        <label for="employeeCode">Employee Code</label>
+        <br />
+        <input type="text" class="form-control" id="employeeCode" placeholder="Enter employee Code" [(ngModel)]="EmployeeToSave.employeeCode"
+        name="employeeCode">
+
+        <label for="joiningDate">joining Date</label><br />
+        <p-calendar [(ngModel)]="EmployeeToSave.joiningDate"   dateFormat="d/mm/yy" [showIcon]="true" inputId="joiningDate" name="joiningDate">
+        </p-calendar>
+        <br />
+
+        <label for="joiningLocation">joining Location</label>
+        <br />
+        <input type="text" class="form-control" id="joiningLocation" placeholder="Enter joining Location" [(ngModel)]="EmployeeToSave.joiningLocation"
+        name="joiningLocation">
+        <br />
+        <label for="phoneNumber">Phone Number</label>
+        <br />
+        <input type="text" class="form-control" id="phoneNumber" placeholder="Enter Phone Number" [(ngModel)]="EmployeeToSave.phoneNumber"
+        name="phoneNumber">
+        <br />
+        <label for="emergencyContactPerson">Emergency Contact Person</label>
+      <br />
+      <input type="text" class="form-control" id="emergencyContactPerson" placeholder="Enter Emergency Contact Person" [(ngModel)]="EmployeeToSave.emergencyContactPerson"
+      name="emergencyContactPerson">
+      <br />
+      <label for="emergencyPhoneNumber">Emergency Phone No</label>
+      <br />
+      <input type="text" class="form-control" id="emergencyPhoneNumber" placeholder="Enter Emergency Phone Number" [(ngModel)]="EmployeeToSave.emergencyPhoneNumber"
+      name="emergencyPhoneNumber">
+      <br />
+      <label for="currentAddress">current Address</label>
+      <br />
+      <input type="text" class="form-control" id="currentAddress" placeholder="Enter Current Address" [(ngModel)]="EmployeeToSave.currentAddress"
+      name="currentAddress">
+
+      <label for="createOn">Create On</label><br />
+      <p-calendar [(ngModel)]="EmployeeToSave.createOn"   dateFormat="d/mm/yy" [showIcon]="true" inputId="createOn" name="createOn">
+      </p-calendar> &nbsp;  &nbsp; &nbsp;  &nbsp;
+
+      <!-- <label  for="passport">
+        Employee Active  
+       </label> &nbsp;  &nbsp;
+      <input [(ngModel)]="isUserActive" #chkEnablehrms label="Active" type="checkbox" inputId="chkEnable" name="inputcheck" > -->
+      <br />
+      <label for="createdBy">Created By</label>
+  <br />
+  <input type="text" class="form-control" id="createdBy" placeholder="Enter Created By" [(ngModel)]="EmployeeToSave.createdBy"
+  name="createdBy">
+
+
+  <label class="col-sm-2 col-form-label">Department :</label>
+
+  <div style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+
+      <select class="form-control" (change)="onChangeDepartment(DepartmentToSave.departmentID)"  [(ngModel)]="DepartmentToSave.departmentID">
+        <option *ngFor="let list of DepartmentList" [value]="list.departmentID">{{list.departmentName}}
+        </option>
+      </select>
+
+    
+
+
+   <!-- </div> -->
+
+  </div>
+
+    </p-tabPanel>
+<!-- ******************************************************************************************************************************************************** -->
+    <p-tabPanel header="Document">
+
+
+      <!-- <label for="singleFile">Upload file</label>
+      <input id="singleFile" type="file" [fileUploadInputFor]= "fileUploadQueue"/>
+      <br>
+      
+      <mat-file-upload-queue #fileUploadQueue
+          [fileAlias]="'file'"
+          [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
+      
+          <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+      </mat-file-upload-queue> -->
+      <!-- <input type="file" (change)="onfileselected($event)">
+      <button type="button" (click)="onUpload()">Upload</button> -->
+
+
+
+      <label for="passportNumber">Passport Number</label>
+      <br />
+      <input type="text" class="form-control" id="passportNumber" placeholder="Enter passport Number" [(ngModel)]="EmployeeToSave.passportNumber"
+      name="passportNumber">
+
+
+      <label for="pANNumber">PAN No</label>
+      <br />
+      <input type="text" class="form-control" id="pANNumber" placeholder="Enter Pan No" [(ngModel)]="EmployeeToSave.pANNumber"
+      name="passportNumber">
+
+      <label for="adharNumber">Adhar No</label>
+      <br />
+      <input type="text" class="form-control" id="adharNumber" placeholder="Enter Adhar No" [(ngModel)]="EmployeeToSave.adharNumber"
+      name="adharNumber" numbersOnly>
+
+      <label for="uANNumber">UAN No</label>
+      <br />
+      <input type="text" class="form-control" id="uANNumber" placeholder="Enter UAN No" [(ngModel)]="EmployeeToSave.uANNumber"
+      name="uANNumber" numbersOnly>
+
+      <label for="tShirtSize">T-Shirt Size</label>
+      <br />
+      <input type="text" class="form-control" id="tShirtSize" placeholder="Enter T-Shirt Size" [(ngModel)]="EmployeeToSave.tShirtSize"
+      name="tShirtSize">
+
+      <label for="bloodGroup">Blood Group</label>
+      <br />
+      <input type="text" class="form-control" id="bloodGroup" placeholder="Enter BloodGroup" [(ngModel)]="EmployeeToSave.bloodGroup"
+      name="bloodGroup">
+    </p-tabPanel>
+<!-- ******************************************************************************************************************************************************** -->
+<p-tabPanel header="Family Info">
+
+  <label for="motherName">Mother Name</label>
+  <br />
+  <input type="text" class="form-control" id="motherName" placeholder="Enter Mother Name" [(ngModel)]="EmployeeToSave.motherName"
+  name="motherName" appAlphabetOnly>
+
+  <label for="motherDOB">Mother DOB</label><br />
+  <p-calendar [(ngModel)]="EmployeeToSave.motherDOB"   dateFormat="d/mm/yy" [showIcon]="true" inputId="motherDOB" name="motherDOB">
+  </p-calendar>
+<br />
+  <label for="fatherName">Father Name</label>
+  <br />
+  <input type="text" class="form-control" id="Father Name" placeholder="Enter Father Name" [(ngModel)]="EmployeeToSave.fatherName"
+  name="fatherName" appAlphabetOnly>
+
+  <label for="fatherDOB">Father DOB</label><br />
+  <p-calendar [(ngModel)]="EmployeeToSave.fatherDOB"   dateFormat="d/mm/yy" [showIcon]="true" inputId="fatherDOB" name="fatherDOB">
+  </p-calendar>
+
+  <br />
+  <label for="spouseName">SpouseName</label>
+  <br />
+  <input type="text" class="form-control" id="spouseName" placeholder="Enter Spouse Name" [(ngModel)]="EmployeeToSave.spouseName"
+  name="spouseName" appAlphabetOnly>
+
+  <label for="spouseDOB">Spouse DOB</label><br />
+      <p-calendar [(ngModel)]="EmployeeToSave.spouseDOB"   dateFormat="d/mm/yy" [showIcon]="true" inputId="spouseDOB" name="spouseDOB">
+      </p-calendar>
+
+
+    
+    </p-tabPanel>
+
+  </p-tabView>
+  </div>
+<!-- ******************************************************************************************************************************************************* -->
+<div class="row testtest">
+  <div class="col-md-12" style="text-align: center;" *ngIf="Loading">
+    <p-progressSpinner [style]="{width: '20px', height: '20px'}" styleClass="custom-spinner" strokeWidth="8"
+      fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>           
+    Loading Employee
+  </div>
+</div>
+<form role="form" *ngIf="!Loading">
+ 
+
+  
+
+  <!-- <div class="card-body"> -->
+    <!-- <div class="form-group">
+      <label for="FirstName">First Name</label>
+      <input type="text" class="form-control" id="firstName" placeholder="Enter first name"
+        [(ngModel)]="EmployeeToSave.firstName" value="" name="firstName" >
+    </div> -->
+<!-- 
+    <div class="form-group">
+    </div>
+    <div class="form-group">
+    </div>
+    <div class="form-group">  
+    </div>
+    <div class="form-group">    
+    </div>
+    <div class="form-group">  
+    </div>
+    <div class="form-group">  
+    </div>
+    <div class="form-group">   
+    </div>
+    <div class="form-group">   
+    </div>
+    <div class="form-group">   
+    </div>
+    <div class="form-group">   
+    </div>
+    <div class="form-group">   
+    </div>
+    <div class="form-group">   
+    </div>
+    <div class="form-group">   
+    </div>   
+    <div class="form-group">   
+    </div>
+    <div class="form-group">   
+    </div>  
+    <div class="form-group">  
+    </div>
+    <div class="form-group">  
+    </div>
+    <div class="form-group">   
+    </div>
+    <div class="form-group">   
+    </div>
+    <div class="form-group">   
+    </div>
+    <div class="form-group">  
+    </div>  
+    <div class="form-group">  
+    </div>    
+    <div class="form-group">  
+    </div>
+    <div class="form-group">    
+    </div>      
+    <div class="form-group">   
+    </div>   
+    <div class="form-group">    
+    </div>
+    <div class="form-group">    
+    </div>      
+    <div class="form-group">  
+    </div>
+<div class="form-group">
+</div>
+<div class="form-group">
+</div>
+  </div> -->
+  <!-- /.card-body -->
+
+
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-12" style="text-align: center;" *ngIf="Saving">
+            <p-progressSpinner [style]="{width: '20px', height: '20px'}" styleClass="custom-spinner" strokeWidth="8"
+              fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>           
+            Saving Employee
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="ErrorMessage != ''">
+          {{ErrorMessage}}
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="float-right">
+          <button type="button"  class="btn btn-success"  (click)="onSaveClick()">Save</button>&nbsp;
+          <button type="button" class="btn btn-danger" (click)="onCloseClick()">Cancel</button>&nbsp;
+        
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</form>

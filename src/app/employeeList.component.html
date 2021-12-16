@@ -1,0 +1,81 @@
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+
+<div class="row">
+    <div class="col-md-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9">
+        <h3 class="m-0 text-dark">Employee List</h3>
+    </div>
+    <div class="col-md-3" style="text-align: right;">
+        <button type="button" class="btn btn-sm btn-info" (click)="onCreateClick()">Create</button>&nbsp;
+        <button type="button" class="btn btn-sm btn-info" (click)="onRefreshClick()">Refresh</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-outline card-secondary">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center;" *ngIf="Loading">
+                        <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner"
+                            strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+                        <p></p>
+                        {{LoadingText}}
+                    </div>
+                </div>
+                <input #SearchTerm *ngIf="!Loading" class="form-control " type="text"
+                name="SearchTerm" (input)="employeeTable.filterGlobal(SearchTerm.value, 'contains')" placeholder="Search...">
+                <br>
+                <p-table #employeeTable [value]="EmployeeList" *ngIf="!Loading && EmployeeList.length>0"   [paginator]="true" [rows]="10" [globalFilterFields]="['firstName','middleName','lastName','gender','birthDate','active']">
+                   
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="firstName">First Name<p-sortIcon field="firstName"></p-sortIcon></th>
+                            <th pSortableColumn="MiddleName"><p-sortIcon field="MiddleName"></p-sortIcon>Middle Name</th>
+                            <th pSortableColumn="lastName"><p-sortIcon field="lastName"></p-sortIcon>Last Name</th>
+                            <th pSortableColumn="gender"><p-sortIcon field="gender"></p-sortIcon>Gender</th>
+                            <th pSortableColumn="birthDate"><p-sortIcon field="birthDate"></p-sortIcon>Birth Date</th>
+                            <th pSortableColumn="Active"><p-sortIcon field="Active"></p-sortIcon>Active</th>
+                            <th>Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-employee>
+                        <tr>
+                            <!-- <td >{{employee.id}}</td> -->
+                             <td >{{employee.firstName}}</td>
+                             <td >{{employee.middleName}}</td>
+                            <td >{{employee.lastName}}</td>
+                            <td >{{employee.gender}}</td>
+                            <td >{{employee.birthDate | date:'dd/MM/yyyy'}}</td> 
+                            <td >{{employee.active}}</td>
+                            <td> 
+                                <button type="button" class="btn btn-xs btn-primary" (click)="onEditClick(employee.id)"><i class="fas fa-edit"></i>&nbsp;</button>&nbsp;
+                                <button type="button"  class="btn btn-xs btn-danger" (click)="onDeleteClick(employee.id,$event)"><i class="fas fa-trash"></i>&nbsp;</button>
+                            </td>
+
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+
+<p-dialog header="{{PopupTitle}}" [(visible)]="ShowCreateEmployee" [style]="{width: '50vw'}" [baseZIndex]="10000" [modal]="true" class="employee-popup">
+    <employee-create #creatEmployeeComp (employeeCreatedEvent)="onEmployeeCreatedEvent($event)" 
+    (employeeCreateCloseEvent)="onEmployeeCreateCloseEvent($event)"></employee-create>
+</p-dialog>

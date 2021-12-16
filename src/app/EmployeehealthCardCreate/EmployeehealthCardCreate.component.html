@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-12" style="text-align: center;" *ngIf="Loading">
+    <p-progressSpinner [style]="{width: '20px', height: '20px'}" styleClass="custom-spinner" strokeWidth="8"
+      fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>           
+    Loading Department
+  </div>
+</div>
+<form role="form"  *ngIf="!Loading">
+  <div class="card-body">
+    <div class="form-group">
+      <label for="first_Name">First Name</label>
+      <input type="text" class="form-control text-capitalize" id="first_Name" placeholder="Enter first_Name"
+        [(ngModel)]="EmployeeHealthcardToSave.first_Name" value="" name="first_Name" appAlphabetOnly>
+    </div>
+    <div class="form-group">
+      <label for="last_Name">Last Name</label>
+      <input type="text" class="form-control text-capitalize" id="last_Name" placeholder="Enter last_Name"
+        [(ngModel)]="EmployeeHealthcardToSave.last_Name" name="last_Name" appAlphabetOnly>
+    </div>
+    <div class="form-group">
+      <label for="relation">Relation</label>
+      <input type="text" class="form-control text-capitalize" id="relation" placeholder="Enter relation" [(ngModel)]="EmployeeHealthcardToSave.relation"
+        name="relation" appAlphabetOnly>
+    </div>
+    <div class="form-group">
+      <label for="adharCard_No">AdharCard_No</label>
+      <input type="text" class="form-control" id="adharCard_No" placeholder="Enter adharCard_No" [(ngModel)]="EmployeeHealthcardToSave.adharCard_No"
+        name="adharCard_No" numbersOnly>
+    </div>
+    
+
+  </div>
+  <!-- /.card-body -->
+
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-12" style="text-align: center;" *ngIf="Saving">
+
+            
+            <p-progressSpinner [style]="{width: '20px', height: '20px'}" styleClass="custom-spinner" strokeWidth="8" class="spinner-border text-success"
+              fill="#EEEEEE" animationDuration=".10"></p-progressSpinner>           
+            Saving Department
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="ErrorMessage != ''">
+          {{ErrorMessage}}
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="float-right">
+          <button type="button" class="btn btn-success"  (click)="onSaveClick()">Save &nbsp;</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-danger"  (click)="onCloseClick()" >Cancel</button>&nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+</form> 
